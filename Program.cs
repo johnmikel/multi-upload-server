@@ -1,11 +1,12 @@
 var builder = WebApplication.CreateBuilder(args);
+var allowSpecificOrigins = "_allowSpecificOrigins";
 
 // Add services to the container.
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", policy =>
+    options.AddPolicy(allowSpecificOrigins, policy =>
     {
-        policy.WithOrigins("https://diesel-skyline-375611.ew.r.appspot.com").AllowAnyHeader();
+        policy.WithOrigins("https://diesel-skyline-375611.ew.r.appspot.com").AllowAnyHeader().AllowAnyMethod();
     });
 });
 
@@ -22,7 +23,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseCors("AllowAll");
+app.UseCors(allowSpecificOrigins);
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
