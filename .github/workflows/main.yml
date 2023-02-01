@@ -1,11 +1,6 @@
 on:
   push:
     branches: ["main"]
-
-env:
-  PROJECT_ID: diesel-skyline-375611
-  WORKLOAD_IDENTITY_PROVIDER: projects/954395161643/locations/global/workloadIdentityPools/my-pool/providers/my-provider
-  SERVICE_ACCOUNT: my-service-account@diesel-skyline-375611.iam.gserviceaccount.com'
     
 jobs:
   deploy:
@@ -25,8 +20,8 @@ jobs:
     - name: Authenticate to Google Cloud
       uses: 'google-github-actions/auth@v1'
       with:
-        workload_identity_provider: $WORKLOAD_IDENTITY_PROVIDER
-        service_account: $SERVICE_ACCOUNT
+        workload_identity_provider: 'projects/954395161643/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
+        service_account: 'my-service-account@diesel-skyline-375611.iam.gserviceaccount.com'
     - name: Set up Google Cloud SDK environment
       uses: google-github-actions/setup-gcloud@v1
     - name: Build Image
