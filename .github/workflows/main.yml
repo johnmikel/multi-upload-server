@@ -1,0 +1,34 @@
+on:
+  push:
+    branches: ["main"]
+
+env:
+  PROJECT_ID: 'diesel-skyline-375611'
+  WORKLOAD_IDENTITY_PROVIDER: 'projects/954395161643/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
+  SERVICE_ACCOUNT: 'my-service-account@diesel-skyline-375611.iam.gserviceaccount.com'
+    
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '7.x.x'
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build -c Release
+    - name: Authenticate to Google Cloud
+      uses: 'google-github-actions/auth@v1'
+      with:
+        workload_identity_provider: $WORKLOAD_IDENTITY_PROVIDER
+        service_account: $SERVICE_ACCOUNT
+    - name: Set up Google Cloud SDK environment
+      uses: google-github-actions/setup-gcloud@v1
+    - name: Build Image
+      run: |-
+        gcloud builds submit
+    - name: Run Image
+      run: |-
+        gcloud run deploy --image=gcr.io/$PROJECT_ID/multi-upload-server
