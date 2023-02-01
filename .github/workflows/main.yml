@@ -13,10 +13,6 @@ jobs:
     - uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '7.x.x'
-    - name: Install dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build -c Release
     - name: Authenticate to Google Cloud
       uses: 'google-github-actions/auth@v1'
       with:
@@ -29,4 +25,4 @@ jobs:
         gcloud builds submit
     - name: Run Image
       run: |-
-        gcloud run deploy --image=gcr.io/${{ secrets.PROJECT_ID }}/multi-upload-server
+        gcloud run deploy multi-upload-server --image=gcr.io/${{ secrets.PROJECT_ID }}/multi-upload-server
