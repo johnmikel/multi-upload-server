@@ -10,7 +10,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
     {
-        policy.WithOrigins("http://localhost:5218").AllowAnyHeader();
+        policy.AllowAnyOrigin().AllowAnyHeader();
     });
 });
 var app = builder.Build();
