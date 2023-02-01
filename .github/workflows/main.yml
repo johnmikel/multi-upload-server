@@ -20,8 +20,8 @@ jobs:
     - name: Authenticate to Google Cloud
       uses: 'google-github-actions/auth@v1'
       with:
-        workload_identity_provider: 'projects/954395161643/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
-        service_account: 'my-service-account@diesel-skyline-375611.iam.gserviceaccount.com'
+        workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
+        service_account: ${{ secrets.SERVICE_ACCOUNT }}
     - name: Set up Google Cloud SDK environment
       uses: google-github-actions/setup-gcloud@v1
     - name: Build Image
@@ -29,4 +29,4 @@ jobs:
         gcloud builds submit
     - name: Run Image
       run: |-
-        gcloud run deploy --image=gcr.io/$PROJECT_ID/multi-upload-server
+        gcloud run deploy --image=gcr.io/${{ secrets.PROJECT_ID }}/multi-upload-server
