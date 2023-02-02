@@ -25,4 +25,4 @@ jobs:
         gcloud builds submit
     - name: Run Image
       run: |-
-        gcloud run deploy multi-upload-server --region=europe-north1 --image=gcr.io/${{ secrets.PROJECT_ID }}/multi-upload-server --port 80
+        gcloud run deploy multi-upload-server --region=europe-north1 --image=gcr.io/${{ secrets.PROJECT_ID }}/multi-upload-server --port 80 --allow-unauthenticated
