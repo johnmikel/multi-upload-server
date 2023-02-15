@@ -6,7 +6,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy(allowSpecificOrigins, policy =>
     {
-        policy.WithOrigins("https://diesel-skyline-375611.ew.r.appspot.com").AllowAnyHeader().AllowAnyMethod();
+        policy.WithOrigins("https://diesel-skyline-375611.ew.r.appspot.com","http://localhost:5218").AllowAnyHeader().AllowAnyMethod();
     });
 });
 
